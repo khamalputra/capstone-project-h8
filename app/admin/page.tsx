@@ -4,6 +4,9 @@ import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { revalidatePath } from 'next/cache';
+import type { Database } from '@/types/database';
+
+type ProfileRow = Database['public']['Tables']['profiles']['Row'];
 
 async function approveProvider(formData: FormData) {
   'use server';
@@ -27,10 +30,12 @@ export default async function AdminPage() {
     redirect('/');
   }
   const supabase = createSupabaseServerClient();
-  const { data: pending } = await supabase
+  const { data: pending } = (await supabase
     .from('profiles')
     .select('id, email, name, role')
-    .eq('role', 'USER');
+    .eq('role', 'USER')) as {
+    data: ProfileRow[] | null;
+  };
   const { data: services } = await supabase
     .from('services')
     .select('id, title, category, price, rating, rating_count, provider:profiles(name)')
@@ -47,7 +52,7 @@ export default async function AdminPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Provider applications</h2>
         <div className="grid gap-4 md:grid-cols-2">
-          {pending?.map((provider) => (
+          {pending?.map((provider: ProfileRow) => (
             <Card key={provider.id}>
               <CardHeader>
                 <CardTitle>{provider.name ?? provider.email}</CardTitle>
