@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ServiceCard } from '@/components/service-card';
-import { createSupabaseServerClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { serviceFilterSchema } from '@/lib/validators';
 
 async function getFeaturedServices() {

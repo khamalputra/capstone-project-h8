@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { createSupabaseServerClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { serviceFilterSchema } from '@/lib/validators';
 import { ServiceCard } from '@/components/service-card';
 import { Input } from '@/components/ui/input';

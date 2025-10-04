@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createSupabaseBrowserClient } from '@/lib/supabase';
+import { createSupabaseBrowserClient } from '@/lib/supabase-browser';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';

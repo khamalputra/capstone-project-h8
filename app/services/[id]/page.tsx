@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { createSupabaseServerClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { Suspense } from 'react';
 import { revalidatePath } from 'next/cache';
 import { bookingCreateSchema } from '@/lib/validators';
