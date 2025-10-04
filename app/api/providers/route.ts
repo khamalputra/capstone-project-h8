@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createSupabaseServerClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { getProfile } from '@/lib/auth';
 import { providerApplicationSchema } from '@/lib/validators';
 

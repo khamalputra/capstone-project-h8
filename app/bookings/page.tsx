@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { createSupabaseServerClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase-server';
 import { getSession } from '@/lib/auth';
 import { BookingStatusBadge } from '@/components/booking-status-badge';
 import { Button } from '@/components/ui/button';
