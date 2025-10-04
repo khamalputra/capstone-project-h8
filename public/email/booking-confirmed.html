@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Booking Confirmed</title>
+    <style>
+      body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        color: #1f2933;
+      }
+      .card {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 32px;
+        border-radius: 16px;
+        border: 1px solid #e4e7eb;
+        background: #ffffff;
+      }
+      h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      p {
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Your FixIt booking is confirmed 🎉</h1>
+      <p>Hi {{customer_name}},</p>
+      <p>
+        Thanks for choosing FixIt. Your provider <strong>{{provider_name}}</strong> has confirmed the
+        <strong>{{service_title}}</strong> appointment for <strong>{{start_time}}</strong>.
+      </p>
+      <p>
+        Need to make changes? You can manage bookings anytime from your FixIt dashboard.
+      </p>
+      <p>— The FixIt Team</p>
+    </div>
+  </body>
+</html>
