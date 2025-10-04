@@ -7,6 +7,13 @@ import { revalidatePath } from 'next/cache';
 import type { Database } from '@/types/database';
 
 type ProfileRow = Database['public']['Tables']['profiles']['Row'];
+type ServiceRow = Database['public']['Tables']['services']['Row'];
+
+type PendingProfile = Pick<ProfileRow, 'id' | 'email' | 'name' | 'role'>;
+type ServiceWithProvider =
+  Pick<ServiceRow, 'id' | 'title' | 'category' | 'price' | 'rating' | 'rating_count'> & {
+    provider: Pick<ProfileRow, 'name'> | null;
+  };
 
 async function approveProvider(formData: FormData) {
   'use server';
@@ -34,13 +41,15 @@ export default async function AdminPage() {
     .from('profiles')
     .select('id, email, name, role')
     .eq('role', 'USER')) as {
-    data: ProfileRow[] | null;
+    data: PendingProfile[] | null;
   };
-  const { data: services } = await supabase
+  const { data: services } = (await supabase
     .from('services')
     .select('id, title, category, price, rating, rating_count, provider:profiles(name)')
     .order('created_at', { ascending: false })
-    .limit(20);
+    .limit(20)) as {
+    data: ServiceWithProvider[] | null;
+  };
 
   return (
     <div className="container-grid space-y-10 py-12">
@@ -52,7 +61,7 @@ export default async function AdminPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Provider applications</h2>
         <div className="grid gap-4 md:grid-cols-2">
-          {pending?.map((provider: ProfileRow) => (
+          {pending?.map((provider: PendingProfile) => (
             <Card key={provider.id}>
               <CardHeader>
                 <CardTitle>{provider.name ?? provider.email}</CardTitle>
@@ -73,7 +82,7 @@ export default async function AdminPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Service catalog</h2>
         <div className="grid gap-4">
-          {services?.map((service) => (
+          {services?.map((service: ServiceWithProvider) => (
             <Card key={service.id}>
               <CardHeader>
                 <CardTitle>{service.title}</CardTitle>
