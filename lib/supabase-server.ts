@@ -25,3 +25,9 @@ export function createSupabaseServerClient() {
     }
   );
 }
+
+export function clearSupabaseAuthCookies() {
+  const cookieStore = cookies();
+  cookieStore.delete('sb-access-token');
+  cookieStore.delete('sb-refresh-token');
+}

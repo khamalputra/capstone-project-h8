@@ -1,5 +1,4 @@
-import { cookies } from 'next/headers';
-import { createSupabaseServerClient } from './supabase-server';
+import { clearSupabaseAuthCookies, createSupabaseServerClient } from './supabase-server';
 
 export async function getSession() {
   const supabase = createSupabaseServerClient();
@@ -32,6 +31,5 @@ export async function requireRole(required: 'USER' | 'PROVIDER' | 'ADMIN') {
 export async function signOutServer() {
   const supabase = createSupabaseServerClient();
   await supabase.auth.signOut();
-  cookies().delete('sb-access-token');
-  cookies().delete('sb-refresh-token');
+  clearSupabaseAuthCookies();
 }
